@@ -9,11 +9,17 @@
 <body>
     <div class="container">
         <h1>Lista de Tarefas</h1>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Digite uma Tarefa">
+            <button id="addTaskBtn">Adicionar</button>
+        </div>
 
-        <input type="text" id="taskInput" placeholder="Digite uma Tarefa">
-        <button id="addTaskBtn">Adicionar</button>
+        <button id="completedTasksBtn">Concluir Tarefa(s)</button>
 
         <ul id="taskList"></ul>
+
+        <h2>Concluídas essa Semana</h2>
+        <ul id="weekTasks"></ul>
     </div>
     
 <script src="script.js"></script>
