@@ -2,6 +2,7 @@ const input = document.getElementById("taskInput");
 const button = document.getElementById("addTaskBtn");
 const list = document.getElementById("taskList");
 const completedBtn = document.getElementById("completedTasksBtn");
+const weekList = document.getElementById("weekTasks");
 
 input.addEventListener("keypress", function(e){
     if(e.key === "Enter"){
@@ -49,9 +50,17 @@ completedBtn.addEventListener("click", function(){
 
     const task = document.querySelectorAll("#taskList li");
     task.forEach(function(task){
+
         const checkbox = task.querySelector("input");
 
         if(checkbox.checked){
+            const texto = task.querySelector("span").textContent;
+
+            const li = document.createElement("li");
+            li.textContent = texto;
+
+            weekList.appendChild(li);
+
             task.remove();
         }
     });
