@@ -14,12 +14,27 @@
             <button id="addTaskBtn">Adicionar</button>
         </div>
 
-        <button id="completedTasksBtn">Concluir Tarefa(s)</button>
+        <button id="startTaskBtn">Iniciar Tarefa(s)</button>
+        <button id="finishTaskBtn">Finalizar Tarefa(s)</button>
 
-        <ul id="taskList"></ul>
+        <div class="lists-container">
 
-        <h2>Concluídas essa Semana</h2>
-        <ul id="weekTasks"></ul>
+            <div class="list-box">
+                <h2>A Fazer</h2>
+                <ul id="todoList"></ul>
+            </div>
+
+            <div class="list-box">
+                <h2>Fazendo</h2>
+                <ul id="doingList"></ul>
+            </div>
+
+            <div class="list-box">
+                <h2>Feitas essa Semana</h2>
+                <ul id="weekTasks"></ul>
+            </div>
+
+        </div>
     </div>
     
 <script src="script.js"></script>

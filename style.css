@@ -37,20 +37,18 @@ li button:hover{
 }
 li{
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 10px;
     margin-top: 8px;
     background: #eee;
-    padding: 8px;
-    border-radius: 5px;
-    transition: 0.2;
+    padding: 10px;
+    border-radius: 6px;
     width: 100%;
     box-sizing: border-box;
 }
 li span{
     flex: 1;
-    margin-left: 10px;
-    font-weight: 550;
+    font-weight: 600;
 }
 li input[type="checkbox"]{
     cursor: pointer;
@@ -76,7 +74,9 @@ input{
     box-sizing: border-box;
 }
 ul{
+    list-style: none;
     padding: 0;
+    margin: 0;
 }
 .input-group{
     display: flex;
@@ -90,4 +90,39 @@ ul{
 .input-group button{
     padding: 8px 12px;
     height: 40px;
+}
+.lists-container{
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.list-box{
+    flex: 1;
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 200px; /* 🔥 mantém altura mínima */
+}
+.list-box h2{
+    text-align: center;
+    margin-bottom: 10px;
+}
+#startTaskBtn{
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745; /* 🔥 verde */
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+}
+#startTaskBtn:hover{
+    background-color: #218838;
+}
+#startTaskBtn:hover{
+    background-color: #218838;
+}
+#startTaskBtn:active{
+    transform: scale(0.97);
 }

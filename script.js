@@ -1,7 +1,8 @@
 const input = document.getElementById("taskInput");
 const button = document.getElementById("addTaskBtn");
-const list = document.getElementById("taskList");
-const completedBtn = document.getElementById("completedTasksBtn");
+const list = document.getElementById("todoList");
+const startBtn = document.getElementById("startTaskBtn");
+const doingList = document.getElementById("doingList");
 const weekList = document.getElementById("weekTasks");
 
 input.addEventListener("keypress", function(e){
@@ -45,23 +46,41 @@ button.addEventListener("click", function () {
 
 });
 
-//concluir tarefas
-completedBtn.addEventListener("click", function(){
+// iniciar tarefas
+startBtn.addEventListener("click", function(){
 
-    const task = document.querySelectorAll("#taskList li");
-    task.forEach(function(task){
+    const tasks = document.querySelectorAll("#todoList li");
+
+    tasks.forEach(function(task){
 
         const checkbox = task.querySelector("input");
 
         if(checkbox.checked){
-            const texto = task.querySelector("span").textContent;
 
-            const li = document.createElement("li");
-            li.textContent = texto;
+            // move direto para "Fazendo"
+            doingList.appendChild(task);
 
-            weekList.appendChild(li);
-
-            task.remove();
+            checkbox.checked = false; // desmarca
         }
     });
+
+});
+
+finishBtn.addEventListener("click", function(){
+
+    const tasks = document.querySelectorAll("#doingList li");
+
+    tasks.forEach(function(task){
+
+        const checkbox = task.querySelector("input");
+
+        if(checkbox.checked){
+
+            // move para "Feitas"
+            weekList.appendChild(task);
+
+            checkbox.checked = false;
+        }
+    });
+
 });
