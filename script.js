@@ -2,6 +2,7 @@ const input = document.getElementById("taskInput");
 const button = document.getElementById("addTaskBtn");
 const list = document.getElementById("todoList");
 const startBtn = document.getElementById("startTaskBtn");
+const finishBtn = document.getElementById("finishTaskBtn");
 const doingList = document.getElementById("doingList");
 const weekList = document.getElementById("weekTasks");
 
@@ -33,6 +34,7 @@ button.addEventListener("click", function () {
     deleteBtn.addEventListener("click", function(e){
         e.stopPropagation(); // evita marcar como concluída
         li.remove();
+        saveTasks();
     });
 
 
@@ -41,6 +43,7 @@ button.addEventListener("click", function () {
     li.appendChild(deleteBtn);
     
     list.appendChild(li);
+    saveTasks();
 
     input.value = "";
 
@@ -58,9 +61,14 @@ startBtn.addEventListener("click", function(){
         if(checkbox.checked){
 
             // move direto para "Fazendo"
-            doingList.appendChild(task);
+           task.classList.add("moving");
 
-            checkbox.checked = false; // desmarca
+            setTimeout(() => {
+                doingList.appendChild(task);
+                task.classList.remove("moving");
+                checkbox.checked = false;
+                saveTasks();
+            }, 200);
         }
     });
 
@@ -68,7 +76,7 @@ startBtn.addEventListener("click", function(){
 
 finishBtn.addEventListener("click", function(){
 
-    const tasks = document.querySelectorAll("#doingList li");
+    const tasks = document.querySelectorAll("#todoList li, #doingList li");
 
     tasks.forEach(function(task){
 
@@ -76,11 +84,78 @@ finishBtn.addEventListener("click", function(){
 
         if(checkbox.checked){
 
-            // move para "Feitas"
-            weekList.appendChild(task);
+            task.classList.add("moving");
 
-            checkbox.checked = false;
+            setTimeout(() => {
+                weekList.appendChild(task);
+                task.classList.remove("moving");
+                checkbox.checked = false;
+                saveTasks();
+            }, 200);
         }
     });
 
 });
+
+function saveTasks(){
+
+    const todo = [];
+    const doing = [];
+    const done = [];
+
+    document.querySelectorAll("#todoList li span").forEach(el => {
+        todo.push(el.textContent);
+    });
+
+    document.querySelectorAll("#doingList li span").forEach(el => {
+        doing.push(el.textContent);
+    });
+
+    document.querySelectorAll("#weekTasks li span").forEach(el => {
+        done.push(el.textContent);
+    });
+
+    localStorage.setItem("todoList", JSON.stringify(todo));
+    localStorage.setItem("doingList", JSON.stringify(doing));
+    localStorage.setItem("weekTasks", JSON.stringify(done));
+}
+function loadTasks(){
+
+    const todo = JSON.parse(localStorage.getItem("todoList")) || [];
+    const doing = JSON.parse(localStorage.getItem("doingList")) || [];
+    const done = JSON.parse(localStorage.getItem("weekTasks")) || [];
+
+    function createTask(text, list){
+
+        const li = document.createElement("li");
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+
+        const span = document.createElement("span");
+        span.textContent = text;
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Remover";
+
+        deleteBtn.addEventListener("click", function(e){
+            e.stopPropagation();
+            li.remove();
+            saveTasks(); // 🔥 importante
+        });
+
+        li.appendChild(checkbox);
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+
+        list.appendChild(li);
+    }
+
+    todo.forEach(text => createTask(text, list));
+    doing.forEach(text => createTask(text, doingList));
+    done.forEach(text => createTask(text, weekList));
+}
+
+// 🔥 executa quando abre a página
+loadTasks();
+
